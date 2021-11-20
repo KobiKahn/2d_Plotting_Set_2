@@ -27,14 +27,15 @@ def open_file(file_name):
 
 
 
-def draw_rect(cx, cy, width, height):
+def make_rect(cx, cy, width, height):
 
-    y_start = height/2
-    x_start = width/2
+    y_start = abs((height/2) - cy)
+    x_start = abs((width/2) - cx)
 
-    x_coords = [(x_start - cx), ]
-    ycoords = [(y_start - cy), ]
+    x_coords = [x_start, x_start + width, x_start + width, x_start, x_start]
+    y_coords = [y_start, y_start, y_start + height, y_start + height, y_start]
 
+    return x_coords, y_coords
 
 def plot_data(x, y, title, xlabel, ylabel, plot_code):
     counter = 0
@@ -60,15 +61,20 @@ def plot_data(x, y, title, xlabel, ylabel, plot_code):
     ymin = min(y)
     ymax = max(y)
 
-    user_rect = input('INPUT X AND Y WIDTH FOR RECTANGLE SEPERATED BY A SPACE: ')
+    user_rect = input('INPUT WIDTH AND HEIGHT FOR RECTANGLE SEPERATED BY A SPACE: ')
 
     user_rect = user_rect.split()
-    user_rect_width = user_rect[0]
-    user_rect_height = user_rect[1]
 
-    draw_rect(x_avg, y_avg, user_rect_width, user_rect_height)
+    user_rect_width = int(user_rect[0])
+    user_rect_height = int(user_rect[1])
+
+    width, height = make_rect(x_avg, y_avg, user_rect_width, user_rect_height)
+
+    print(width, height)
 
     plt.title(f'{title}')
+
+    plt.plot(width, height, '-')
 
     plt.xlabel = xlabel
     plt.ylabel = ylabel
