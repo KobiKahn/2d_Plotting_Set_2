@@ -181,5 +181,5 @@ def pie_chart(names, n_sales, tot_sales):
     plt.show()
 
 
-pie_chart(names, n_sales, tot_sales)
+# pie_chart(names, n_sales, tot_sales)
 
