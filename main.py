@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 
 
+############################################################################
+# PROBLEM 1
+
 def open_file(file_name):
     x_counter = 0
     x = []
@@ -22,8 +25,6 @@ def open_file(file_name):
                 y.append(float(row[1]))
 
         return x, y, xlabel, ylabel
-
-
 
 
 
@@ -89,8 +90,96 @@ def plot_data(x, y, title, xlabel, ylabel, plot_code):
     plt.show()
 
 
-## 1b
-x, y, xlabel, ylabel = open_file('Jacob Kahn - temp_and_pressure.txt')
-plot_data(x, y, 'KOBI\n GRAPH', xlabel, ylabel, '.')
+# x, y, xlabel, ylabel = open_file('Jacob Kahn - temp_and_pressure.txt')
+# plot_data(x, y, 'KOBI\n GRAPH', xlabel, ylabel, '.')
 
+########################################################################################
+
+
+########################################################################################
+### 2
+
+
+def open_file2(filename):
+
+    data = []
+
+    with open(filename) as file:
+        for row in file:
+            row = row.split()
+            data.append(int(row[0]))
+
+    return data
+
+
+data = open_file2('Jacob Kahn - test_scores.txt')
+
+
+def histogram_grade(data):
+
+    bin_locs = [60, 70, 80, 92, 100]
+
+
+
+    plt.title('GRADES')
+
+    plt.hist(data, bin_locs)
+
+    plt.show()
+
+# histogram_grade(data)
+
+
+###############################################################
+## PROBLEM 3
+
+def open_file3(filename):
+
+    names = []
+    n_sales = []
+    tot_sales = []
+    x = 0
+
+    with open(filename) as file:
+        for row in file:
+            x += 1
+            row = row.split()
+
+            if x != 1:
+                names.append(row[0])
+                n_sales.append(int(row[1]))
+                tot_sales.append(int(row[2]))
+    return names, n_sales, tot_sales
+
+
+names, n_sales, tot_sales = open_file3('Jacob Kahn - sales_data.txt')
+
+
+def pie_chart(names, n_sales, tot_sales):
+
+
+
+
+    slice_explode1 = [0,0,0,.1, 0, 0]
+    # slice_explode2 = [0, 0, 0, .1, 0, 0]
+
+    plt.subplot(1, 2, 1)
+
+    plt.title('TOTAL SALES')
+
+    plt.pie(n_sales, explode = slice_explode1, labels = names, shadow = True)
+
+    plt.axis('equal')
+
+    plt.subplot(1, 2, 2)
+
+    plt.title('TOTAL DOLLAR AMOUNT')
+
+    plt.pie(tot_sales, explode = slice_explode1, labels = names, shadow = True)
+
+    plt.axis('equal')
+    plt.show()
+
+
+pie_chart(names, n_sales, tot_sales)
 
